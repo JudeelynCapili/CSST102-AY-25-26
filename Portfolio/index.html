@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSST102 - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      :root {
+        --pink-color: #ff69b4;
+        --dark-color: #0a0a0a;
+        --card-bg: #1a1a2e;
+        --light-pink: #ffb6c1;
+        --text-color: #f5f5f5;
+        --accent-purple: #9b59b6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--dark-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* Animated background */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 50%,
+            rgba(255, 105, 180, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(155, 89, 182, 0.1) 0%,
+            transparent 50%
+          );
+        z-index: -1;
+      }
+
+      header {
+        background-color: rgba(0, 0, 0, 0.95);
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 20px rgba(255, 105, 180, 0.1);
+      }
+
+      nav {
+        display: flex;
+        justify-content: center;
+        padding: 0.5rem;
+      }
+
+      nav a {
+        color: var(--text-color);
+        text-decoration: none;
+        margin: 0 2rem;
+        font-weight: 500;
+        transition: all 0.3s;
+        position: relative;
+      }
+
+      nav a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
+        transition: width 0.3s;
+      }
+
+      nav a:hover::after {
+        width: 100%;
+      }
+
+      nav a:hover {
+        color: var(--pink-color);
+      }
+
+      .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: calc(100vh - 80px);
+        text-align: center;
+        padding: 0 1rem;
+        padding-top: 80px; /* offset for fixed header */
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url("background.jpg");
+        background-size: cover;
+        background-position: center;
+        position: relative;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+          circle at center,
+          transparent 0%,
+          rgba(0, 0, 0, 0.5) 100%
+        );
+      }
+
+      .profile-container {
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 1;
+        animation: fadeInDown 1s ease-out;
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .profile-img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid transparent;
+        background: linear-gradient(white, white) padding-box,
+          linear-gradient(135deg, var(--pink-color), var(--accent-purple))
+            border-box;
+        box-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+        transition: transform 0.3s;
+      }
+
+      .profile-img:hover {
+        transform: scale(1.05);
+      }
+
+      h1 {
+        font-size: 3.2rem;
+        margin: 0;
+        background: linear-gradient(
+          135deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        z-index: 1;
+        position: relative;
+        animation: fadeInUp 1s ease-out 0.2s backwards;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h2 {
+        color: var(--light-pink);
+        margin-top: 0.5rem;
+        font-weight: 600;
+        z-index: 1;
+        position: relative;
+        animation: fadeInUp 1s ease-out 0.4s backwards;
+      }
+
+      .hero p {
+        z-index: 1;
+        position: relative;
+        animation: fadeInUp 1s ease-out 0.6s backwards;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 2rem;
+        z-index: 1;
+        position: relative;
+        animation: fadeInUp 1s ease-out 0.8s backwards;
+      }
+
+      .btn {
+        display: inline-block;
+        background: linear-gradient(
+          135deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
+        color: white;
+        padding: 1rem 2.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+        box-shadow: 0 5px 25px rgba(255, 105, 180, 0.4);
+      }
+
+      .btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 35px rgba(255, 105, 180, 0.6);
+      }
+
+      .github-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: linear-gradient(135deg, #24292f, #444c56);
+        color: white;
+        text-decoration: none;
+        padding: 0.9rem 1.6rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s;
+        box-shadow: 0 8px 30px rgba(36, 41, 47, 0.35);
+      }
+
+      .github-btn i {
+        font-size: 1.15rem;
+        display: inline-block;
+      }
+
+      .github-btn:hover {
+        background: linear-gradient(135deg, #444c56, #24292f);
+        transform: translateY(-4px);
+        box-shadow: 0 14px 40px rgba(36, 41, 47, 0.45);
+      }
+
+      .section {
+        padding: 6rem 2rem;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .section-title h2 {
+        font-size: 2.8rem;
+        display: inline-block;
+        position: relative;
+        padding-bottom: 1rem;
+        font-weight: 700;
+        background: linear-gradient(
+          135deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .section-title h2::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
+        border-radius: 2px;
+      }
+
+      .about-content {
+        max-width: 900px;
+        margin: 0 auto;
+        font-weight: 300;
+        background: rgba(26, 26, 46, 0.6);
+        padding: 3rem;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 105, 180, 0.1);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .about-content p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      .project-link {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .project-card {
+        background: linear-gradient(
+          145deg,
+          rgba(26, 26, 46, 0.9),
+          rgba(45, 45, 75, 0.9)
+        );
+        border-radius: 20px;
+        padding: 2.5rem;
+        text-align: center;
+        transition: all 0.4s ease;
+        border: 2px solid transparent;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+      }
+
+      .project-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
+        opacity: 0;
+        transition: opacity 0.4s;
+        z-index: 0;
+      }
+
+      .project-card:hover::before {
+        opacity: 0.1;
+      }
+
+      .project-card:hover {
+        transform: translateY(-15px) scale(1.02);
+        border-color: var(--pink-color);
+        box-shadow: 0 20px 50px rgba(255, 105, 180, 0.4);
+      }
+
+      .folder-icon-container {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 1.5rem;
+        z-index: 1;
+      }
+
+      .folder-icon {
+        position: relative;
+        width: 120px;
+        height: 100px;
+        background: linear-gradient(
+          135deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
+        border-radius: 8px;
+        transition: all 0.4s ease;
+        box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+      }
+
+      .folder-icon::before {
+        content: "";
+        position: absolute;
+        top: -12px;
+        left: 0;
+        width: 50px;
+        height: 15px;
+        background: linear-gradient(
+          135deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
+        border-radius: 4px 4px 0 0;
+      }
+
+      .folder-icon::after {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+      }
+
+      .activity-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 3rem;
+        z-index: 2;
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+        transition: all 0.4s ease;
+      }
+
+      .project-card:hover .folder-icon {
+        transform: scale(1.1) rotateY(15deg);
+        box-shadow: 0 15px 40px rgba(255, 105, 180, 0.5);
+      }
+
+      .project-card:hover .activity-icon {
+        transform: translate(-50%, -50%) scale(1.2) rotate(10deg);
+      }
+
+      .project-card h3 {
+        color: var(--light-pink);
+        margin-bottom: 1rem;
+        font-weight: 600;
+        font-size: 1.5rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .project-card p {
+        color: rgba(245, 245, 245, 0.8);
+        position: relative;
+        z-index: 1;
+        font-size: 1rem;
+      }
+
+      footer {
+        background-color: rgba(0, 0, 0, 0.95);
+        color: var(--text-color);
+        text-align: center;
+        padding: 2.5rem 0;
+        font-weight: 300;
+        border-top: 1px solid rgba(255, 105, 180, 0.2);
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.5rem;
+        }
+
+        .section-title h2 {
+          font-size: 2rem;
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        nav a {
+          margin: 0 1rem;
+        }
+
+        .hero-buttons {
+          gap: 0.6rem;
+        }
+
+        .btn {
+          padding: 0.9rem 1.8rem;
+        }
+
+        .github-btn {
+          padding: 0.8rem 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section id="home" class="hero">
+      <div class="profile-container">
+        <img src="capilipic.jpg" alt="Judeelyn M. Capili" class="profile-img" />
+      </div>
+      <h1>CSST102 Portfolio</h1>
+      <h2>Judeelyn M. Capili</h2>
+      <p>BSCS 3A</p>
+
+      <div class="hero-buttons" role="group" aria-label="hero actions">
+        <a href="#projects" class="btn" aria-label="View My Projects"
+          >View My Projects</a
+        >
+
+        <a
+          href="https://github.com/JudeelynCapili/CSST102-AY-25-26"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="github-btn"
+          aria-label="View GitHub Repository"
+        >
+          <i class="fab fa-github" aria-hidden="true"></i>
+          <span>GitHub Repo</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="section-title">
+        <h2>About Me</h2>
+      </div>
+      <div class="about-content">
+        <p>
+          Welcome to my CSST102 portfolio! I'm Judeelyn M. Capili, a student of
+          BSCS 3A with a passion for web development and programming. This
+          portfolio showcases my projects and skills developed throughout this
+          course.
+        </p>
+        <p>
+          Throughout my academic journey, I've focused on developing practical
+          skills in web technologies, programming languages, and software
+          development methodologies.
+        </p>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="section-title">
+        <h2>My Projects</h2>
+      </div>
+      <div class="projects-grid">
+        <a
+          href="https://github.com/JudeelynCapili/CSST102-AY-25-26/tree/main/Activity1"
+          class="project-link"
+          target="_blank"
+        >
+          <div class="project-card">
+            <div class="folder-icon-container">
+              <div class="folder-icon"></div>
+              <div class="activity-icon">🧠</div>
+            </div>
+            <h3>Activity 1</h3>
+            <p>Simple project or files for Activity 1</p>
+          </div>
+        </a>
+
+        <a
+          href="https://github.com/JudeelynCapili/CSST102-AY-25-26/tree/main/Activity2"
+          class="project-link"
+          target="_blank"
+        >
+          <div class="project-card">
+            <div class="folder-icon-container">
+              <div class="folder-icon"></div>
+              <div class="activity-icon">💻</div>
+            </div>
+            <h3>Activity 2</h3>
+            <p>Files and exercises for Activity 2</p>
+          </div>
+        </a>
+
+        <a
+          href="https://github.com/JudeelynCapili/CSST102-AY-25-26/tree/main/Activity3"
+          class="project-link"
+          target="_blank"
+        >
+          <div class="project-card">
+            <div class="folder-icon-container">
+              <div class="folder-icon"></div>
+              <div class="activity-icon">📁</div>
+            </div>
+            <h3>Activity 3</h3>
+            <p>Project files and related code</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <footer id="contact">
+      <p>Created by <strong>Judeelyn M. Capili</strong> | BSCS 3A</p>
+      <p>&copy; 2025 CSST102 Portfolio. All Rights Reserved.</p>
+    </footer>
+  </body>
+</html>
