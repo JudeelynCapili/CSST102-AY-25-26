@@ -4,40 +4,70 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CSST102 - Portfolio</title>
-    <!-- Add Poppins font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <style>
       :root {
         --pink-color: #ff69b4;
-        --dark-color: #121212;
+        --dark-color: #0a0a0a;
+        --card-bg: #1a1a2e;
         --light-pink: #ffb6c1;
         --text-color: #f5f5f5;
-        --card-bg: rgba(255, 255, 255, 0.03);
+        --accent-purple: #9b59b6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
 
       body {
         font-family: "Poppins", sans-serif;
         background-color: var(--dark-color);
         color: var(--text-color);
-        margin: 0;
-        padding: 0;
         line-height: 1.6;
-        padding-top: 76px; /* offset fixed header */
+        overflow-x: hidden;
+      }
+
+      /* Animated background */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 50%,
+            rgba(255, 105, 180, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(155, 89, 182, 0.1) 0%,
+            transparent 50%
+          );
+        z-index: -1;
       }
 
       header {
-        background-color: rgba(0, 0, 0, 0.85);
-        padding: 0.8rem 0;
+        background-color: rgba(0, 0, 0, 0.95);
+        padding: 1rem 0;
         position: fixed;
         width: 100%;
         top: 0;
         z-index: 100;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 20px rgba(255, 105, 180, 0.1);
       }
 
       nav {
@@ -49,9 +79,29 @@
       nav a {
         color: var(--text-color);
         text-decoration: none;
-        margin: 0 1.2rem;
+        margin: 0 2rem;
         font-weight: 500;
-        transition: color 0.3s;
+        transition: all 0.3s;
+        position: relative;
+      }
+
+      nav a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
+        transition: width 0.3s;
+      }
+
+      nav a:hover::after {
+        width: 100%;
       }
 
       nav a:hover {
@@ -63,210 +113,403 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: calc(100vh - 76px);
+        height: calc(100vh - 80px);
         text-align: center;
-        padding: 2rem 1rem;
-        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        padding: 0 1rem;
+        padding-top: 80px; /* offset for fixed header */
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
           url("background.jpg");
         background-size: cover;
         background-position: center;
-        gap: 1rem;
-      }
-
-      .profile-container {
-        margin-bottom: 1rem;
         position: relative;
       }
 
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+          circle at center,
+          transparent 0%,
+          rgba(0, 0, 0, 0.5) 100%
+        );
+      }
+
+      .profile-container {
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 1;
+        animation: fadeInDown 1s ease-out;
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
       .profile-img {
-        width: 180px;
-        height: 180px;
+        width: 200px;
+        height: 200px;
         border-radius: 50%;
         object-fit: cover;
-        border: 4px solid var(--pink-color);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+        border: 5px solid transparent;
+        background: linear-gradient(white, white) padding-box,
+          linear-gradient(135deg, var(--pink-color), var(--accent-purple))
+            border-box;
+        box-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+        transition: transform 0.3s;
+      }
+
+      .profile-img:hover {
+        transform: scale(1.05);
       }
 
       h1 {
-        font-size: 2.6rem;
+        font-size: 3.2rem;
         margin: 0;
-        color: var(--pink-color);
+        background: linear-gradient(
+          135deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
         font-weight: 700;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+        z-index: 1;
+        position: relative;
+        animation: fadeInUp 1s ease-out 0.2s backwards;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       h2 {
         color: var(--light-pink);
-        margin-top: 0.25rem;
+        margin-top: 0.5rem;
         font-weight: 600;
+        z-index: 1;
+        position: relative;
+        animation: fadeInUp 1s ease-out 0.4s backwards;
       }
 
-      p.lead {
-        opacity: 0.95;
-        margin: 0.3rem 0 0;
-        font-weight: 300;
+      .hero p {
+        z-index: 1;
+        position: relative;
+        animation: fadeInUp 1s ease-out 0.6s backwards;
       }
 
-      .hero-actions {
-        display: inline-flex;
-        gap: 12px;
-        align-items: center;
-        margin-top: 0.8rem;
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
         flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 2rem;
+        z-index: 1;
+        position: relative;
+        animation: fadeInUp 1s ease-out 0.8s backwards;
       }
 
       .btn {
         display: inline-block;
-        background-color: var(--pink-color);
+        background: linear-gradient(
+          135deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
         color: white;
-        padding: 0.8rem 1.6rem;
-        border-radius: 30px;
+        padding: 1rem 2.5rem;
+        border-radius: 50px;
         text-decoration: none;
         font-weight: 600;
-        transition: all 0.25s;
-        box-shadow: 0 6px 18px rgba(255, 105, 180, 0.12);
+        transition: all 0.3s;
+        box-shadow: 0 5px 25px rgba(255, 105, 180, 0.4);
       }
 
       .btn:hover {
-        background-color: var(--light-pink);
-        transform: translateY(-3px);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 35px rgba(255, 105, 180, 0.6);
       }
 
-      /* GitHub Repo Button */
       .github-btn {
         display: inline-flex;
         align-items: center;
-        background-color: #24292f;
+        gap: 0.6rem;
+        background: linear-gradient(135deg, #24292f, #444c56);
         color: white;
         text-decoration: none;
-        padding: 10px 16px;
-        border-radius: 8px;
-        font-weight: 700;
-        transition: all 0.25s;
-        gap: 10px;
-        box-shadow: 0 6px 18px rgba(36, 41, 47, 0.12);
-      }
-
-      .github-btn:hover {
-        background-color: #444c56;
-        transform: translateY(-2px);
+        padding: 0.9rem 1.6rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s;
+        box-shadow: 0 8px 30px rgba(36, 41, 47, 0.35);
       }
 
       .github-btn i {
         font-size: 1.15rem;
+        display: inline-block;
+      }
+
+      .github-btn:hover {
+        background: linear-gradient(135deg, #444c56, #24292f);
+        transform: translateY(-4px);
+        box-shadow: 0 14px 40px rgba(36, 41, 47, 0.45);
       }
 
       .section {
-        padding: 4rem 2rem;
+        padding: 6rem 2rem;
       }
 
       .section-title {
         text-align: center;
-        margin-bottom: 2.5rem;
+        margin-bottom: 4rem;
       }
 
       .section-title h2 {
-        font-size: 2.2rem;
+        font-size: 2.8rem;
         display: inline-block;
         position: relative;
-        padding-bottom: 0.5rem;
-        font-weight: 600;
+        padding-bottom: 1rem;
+        font-weight: 700;
+        background: linear-gradient(
+          135deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
 
       .section-title h2::after {
         content: "";
         position: absolute;
-        left: 25%;
+        left: 50%;
+        transform: translateX(-50%);
         bottom: 0;
-        width: 50%;
-        height: 3px;
-        background-color: var(--pink-color);
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
+        border-radius: 2px;
       }
 
       .about-content {
         max-width: 900px;
         margin: 0 auto;
         font-weight: 300;
+        background: rgba(26, 26, 46, 0.6);
+        padding: 3rem;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 105, 180, 0.1);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
       }
 
-      /* Projects folder list */
+      .about-content p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+      }
+
       .projects-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 1rem;
-        margin-top: 1.2rem;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      .project-link {
+        text-decoration: none;
+        color: inherit;
       }
 
       .project-card {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 14px;
-        border-radius: 10px;
-        background: var(--card-bg);
-        transition: transform 0.18s, background 0.18s;
-        border: 1px solid rgba(255, 255, 255, 0.03);
+        background: linear-gradient(
+          145deg,
+          rgba(26, 26, 46, 0.9),
+          rgba(45, 45, 75, 0.9)
+        );
+        border-radius: 20px;
+        padding: 2.5rem;
+        text-align: center;
+        transition: all 0.4s ease;
+        border: 2px solid transparent;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+      }
+
+      .project-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
+        opacity: 0;
+        transition: opacity 0.4s;
+        z-index: 0;
+      }
+
+      .project-card:hover::before {
+        opacity: 0.1;
       }
 
       .project-card:hover {
-        transform: translateY(-6px);
-        background: rgba(255, 105, 180, 0.04);
-        border-color: rgba(255, 105, 180, 0.12);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        transform: translateY(-15px) scale(1.02);
+        border-color: var(--pink-color);
+        box-shadow: 0 20px 50px rgba(255, 105, 180, 0.4);
+      }
+
+      .folder-icon-container {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 1.5rem;
+        z-index: 1;
       }
 
       .folder-icon {
-        width: 56px;
-        height: 56px;
+        position: relative;
+        width: 120px;
+        height: 100px;
+        background: linear-gradient(
+          135deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
         border-radius: 8px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.03);
-        color: var(--pink-color);
-        font-size: 1.6rem;
-        flex-shrink: 0;
+        transition: all 0.4s ease;
+        box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
       }
 
-      .project-info a {
-        color: var(--text-color);
-        text-decoration: none;
+      .folder-icon::before {
+        content: "";
+        position: absolute;
+        top: -12px;
+        left: 0;
+        width: 50px;
+        height: 15px;
+        background: linear-gradient(
+          135deg,
+          var(--pink-color),
+          var(--accent-purple)
+        );
+        border-radius: 4px 4px 0 0;
+      }
+
+      .folder-icon::after {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+      }
+
+      .activity-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 3rem;
+        z-index: 2;
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+        transition: all 0.4s ease;
+      }
+
+      .project-card:hover .folder-icon {
+        transform: scale(1.1) rotateY(15deg);
+        box-shadow: 0 15px 40px rgba(255, 105, 180, 0.5);
+      }
+
+      .project-card:hover .activity-icon {
+        transform: translate(-50%, -50%) scale(1.2) rotate(10deg);
+      }
+
+      .project-card h3 {
+        color: var(--light-pink);
+        margin-bottom: 1rem;
         font-weight: 600;
+        font-size: 1.5rem;
+        position: relative;
+        z-index: 1;
       }
 
-      .project-info p {
-        margin: 4px 0 0;
-        font-size: 0.92rem;
+      .project-card p {
         color: rgba(245, 245, 245, 0.8);
-        font-weight: 300;
+        position: relative;
+        z-index: 1;
+        font-size: 1rem;
       }
 
       footer {
-        background-color: black;
+        background-color: rgba(0, 0, 0, 0.95);
         color: var(--text-color);
         text-align: center;
-        padding: 2rem 0;
+        padding: 2.5rem 0;
         font-weight: 300;
-      }
-
-      .social-icons a {
-        color: var(--text-color);
-        font-size: 1.4rem;
-        margin: 0 0.5rem;
-        transition: color 0.3s;
-      }
-
-      .social-icons a:hover {
-        color: var(--pink-color);
+        border-top: 1px solid rgba(255, 105, 180, 0.2);
       }
 
       @media (max-width: 768px) {
         h1 {
+          font-size: 2.5rem;
+        }
+
+        .section-title h2 {
           font-size: 2rem;
         }
 
-        .hero-actions {
-          justify-content: center;
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        nav a {
+          margin: 0 1rem;
+        }
+
+        .hero-buttons {
+          gap: 0.6rem;
+        }
+
+        .btn {
+          padding: 0.9rem 1.8rem;
+        }
+
+        .github-btn {
+          padding: 0.8rem 1.2rem;
         }
       }
     </style>
@@ -287,20 +530,22 @@
       </div>
       <h1>CSST102 Portfolio</h1>
       <h2>Judeelyn M. Capili</h2>
-      <p class="lead">BSCS 3A</p>
+      <p>BSCS 3A</p>
 
-      <!-- Actions aligned on same line -->
-      <div class="hero-actions" role="group" aria-label="hero actions">
-        <a href="#projects" class="btn">View My Projects</a>
+      <div class="hero-buttons" role="group" aria-label="hero actions">
+        <a href="#projects" class="btn" aria-label="View My Projects"
+          >View My Projects</a
+        >
 
         <a
           href="https://github.com/JudeelynCapili/CSST102-AY-25-26"
           target="_blank"
           rel="noopener noreferrer"
           class="github-btn"
+          aria-label="View GitHub Repository"
         >
           <i class="fab fa-github" aria-hidden="true"></i>
-          View GitHub Repo
+          <span>GitHub Repo</span>
         </a>
       </div>
     </section>
@@ -328,92 +573,71 @@
       <div class="section-title">
         <h2>My Projects</h2>
       </div>
-      <div class="about-content">
-        <p>
-          Here are some of the projects I've completed during my CSST102 course:
-        </p>
-
-        <!-- Folder links to GitHub activities -->
-        <div class="projects-grid" aria-live="polite">
+      <div class="projects-grid">
+        <a
+          href="https://github.com/JudeelynCapili/CSST102-AY-25-26/tree/main/activity1"
+          class="project-link"
+          target="_blank"
+        >
           <div class="project-card">
-            <div class="folder-icon" aria-hidden="true">📁</div>
-            <div class="project-info">
-              <a
-                href="https://github.com/JudeelynCapili/CSST102-AY-25-26/tree/main/activity1"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Activity 1</a
-              >
-              <p>Simple project or files for Activity 1</p>
+            <div class="folder-icon-container">
+              <div class="folder-icon"></div>
+              <div class="activity-icon">🧠</div>
             </div>
+            <h3>Activity 1</h3>
+            <p>Simple project or files for Activity 1</p>
           </div>
+        </a>
 
+        <a
+          href="https://github.com/JudeelynCapili/CSST102-AY-25-26/tree/main/activity2"
+          class="project-link"
+          target="_blank"
+        >
           <div class="project-card">
-            <div class="folder-icon" aria-hidden="true">📁</div>
-            <div class="project-info">
-              <a
-                href="https://github.com/JudeelynCapili/CSST102-AY-25-26/tree/main/activity2"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Activity 2</a
-              >
-              <p>Simple project or files for Activity 2</p>
+            <div class="folder-icon-container">
+              <div class="folder-icon"></div>
+              <div class="activity-icon">🔍</div>
             </div>
+            <h3>Activity 2</h3>
+            <p>Simple project or files for Activity 2</p>
           </div>
+        </a>
 
+        <a
+          href="https://github.com/JudeelynCapili/CSST102-AY-25-26/tree/main/activity3"
+          class="project-link"
+          target="_blank"
+        >
           <div class="project-card">
-            <div class="folder-icon" aria-hidden="true">📁</div>
-            <div class="project-info">
-              <a
-                href="https://github.com/JudeelynCapili/CSST102-AY-25-26/tree/main/activity3"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Activity 3</a
-              >
-              <p>Simple project or files for Activity 3</p>
+            <div class="folder-icon-container">
+              <div class="folder-icon"></div>
+              <div class="activity-icon">⚡</div>
             </div>
+            <h3>Activity 3</h3>
+            <p>Simple project or files for Activity 3</p>
           </div>
+        </a>
 
+        <a
+          href="https://github.com/JudeelynCapili/CSST102-AY-25-26/tree/main/activity4"
+          class="project-link"
+          target="_blank"
+        >
           <div class="project-card">
-            <div class="folder-icon" aria-hidden="true">📁</div>
-            <div class="project-info">
-              <a
-                href="https://github.com/JudeelynCapili/CSST102-AY-25-26/tree/main/activity4"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Activity 4</a
-              >
-              <p>Simple project or files for Activity 4</p>
+            <div class="folder-icon-container">
+              <div class="folder-icon"></div>
+              <div class="activity-icon">🎯</div>
             </div>
+            <h3>Activity 4</h3>
+            <p>Simple project or files for Activity 4</p>
           </div>
-        </div>
+        </a>
       </div>
     </section>
 
-    <section id="contact" class="section">
-      <div class="section-title">
-        <h2>Contact Me</h2>
-      </div>
-      <div class="about-content">
-        <p>Feel free to reach out to me for collaboration or questions:</p>
-        <p>Email: judeelyn.capili@example.com</p>
-        <p>Phone: (123) 456-7890</p>
-        <div class="social-icons">
-          <a href="#"><i class="fab fa-github"></i></a>
-          <a href="#"><i class="fab fa-linkedin"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-        </div>
-      </div>
-    </section>
-
-    <footer>
+    <footer id="contact">
       <p>&copy; 2025 Judeelyn M. Capili | CSST102 Portfolio</p>
     </footer>
-
-    <!-- Font Awesome for icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
   </body>
 </html>
