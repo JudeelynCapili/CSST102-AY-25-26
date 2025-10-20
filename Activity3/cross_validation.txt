@@ -1,0 +1,5 @@
+5-Fold Cross Validation Results
+---------------------------------
+Scores: [0.80789729 0.79917636 0.82485465 0.78464147 0.85998062]
+Mean Accuracy: 0.815
+Standard Deviation: 0.026
